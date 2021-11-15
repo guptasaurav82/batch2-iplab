@@ -13,70 +13,61 @@
 <body>
   <div class="container">
     <form id="contactForm">
-      <label>Name</label> <input type="text" id="Namebox">
-      <label>Gender</label><input type="text" id="Genderbox">
-      <label>Email Address</label> <input type="email" id="Emailbox">
-      <label>Phone Number</label><input type="text" id="Phonebox">
-      <label>Address</label><input type="text" id="Addressbox">
-      <label>Aadhar Number</label><input type="text" id="Aadharbox">
+      <label>Name</label> <input type="text" id="Name">
+      <label>Gender</label><input type="text" id="Gender">
+      <label>Email Address</label> <input type="email" id="Email">
+      <label>Phone Number</label><input type="text" id="Phone">
+      <label>Address</label><input type="text" id="Address">
+      <label>Aadhar Number</label><input type="text" id="Aadhar">
       <hr>
       <button id="Submitbtn">SUBMIT</button>
-      </p>
+      <a href="https://verify.cowin.gov.in/">Click here to Scan</a>
+
     </form>
 </div>
 
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+  import { getDatabase, ref, set  } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-database.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAHeGpaseNGDszoCR_UanObrQO2FbX6S7Y",
+    authDomain: "ip-project-75837.firebaseapp.com",
+    databaseURL: "https://ip-project-75837-default-rtdb.firebaseio.com",
+    projectId: "ip-project-75837",
+    storageBucket: "ip-project-75837.appspot.com",
+    messagingSenderId: "956993490254",
+    appId: "1:956993490254:web:37d5971fff4f95d389e21f"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  document.getElementById("Submitbtn").addEventListener('click', function writeUserData(Name, Gender, Email, Phone, Address, Aadhar) {
+    Name=document.getElementById("Name").value
+    Gender=document.getElementById("Gender").value
+    Email=document.getElementById("Email").value
+    Phone=document.getElementById("Phone").value
+    Address=document.getElementById("Address").value
+    Aadhar=document.getElementById("Aadhar").value
 
 
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-  
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyAHeGpaseNGDszoCR_UanObrQO2FbX6S7Y",
-      authDomain: "ip-project-75837.firebaseapp.com",
-      databaseURL: "https://ip-project-75837-default-rtdb.firebaseio.com",
-      projectId: "ip-project-75837",
-      storageBucket: "ip-project-75837.appspot.com",
-      messagingSenderId: "956993490254",
-      appId: "1:956993490254:web:37d5971fff4f95d389e21f"
-    };
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    import{getDatabase, ref, set, child, update, remove}
-    from "https://www.gstatic.com/firebasejs/9.4.1/firebase-database.js"
-    const db = getDatabase();
+    set(ref(db, 'User/' + Name), {
+      username: Name,
+      Gender:Gender,
+      Email:Email,
+      Phone:Phone,
+      Address:Address,
+      Aadhar:Aadhar
 
-
-   var namebox = document.getElementById('Namebox');
-   var genderbox = document.getElementById('Genderbox');
-   var Emailbox = document.getElementById('Emailbox');
-   var phonebox = document.getElementById('Phonebox');
-   var addressbox = document.getElementById('Addressbox');
-   var aadharbox = document.getElementById('Aadharbox');
-  
-   var Submitbtn= document.getElementById("Submitbtn");
-
-   function InsertData(){
-     set(ref(db,"User/"+namebox.value),{
-       NameOfUser: namebox.value,
-       Gender: genderbox.value,
-       Email: Emailbox.value,
-       Phone: phonebox.value,
-       Address: addressbox.value,
-       Aadhar: aadharbox.value
-     })
-     .then(()=>{
-       alert("data stored successfully");
-     })
-     .catch((error)=>{
-       alert("unsuccessful, error" +error);
-     });
-   }
-Submitbtn.addEventListener('click', InsertData);
-
+    });}
+  )
 </script>
+
+
 </body>
 </html>
